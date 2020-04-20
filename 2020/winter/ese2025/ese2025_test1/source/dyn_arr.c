@@ -5,6 +5,7 @@
  *      Author: takis
  */
 
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -21,6 +22,15 @@
  */
 int comparo_fName(const void *pA, const void *pB)
 {
+   
+// extract student records
+	stuDA_t student_A = *((stuDA_t*) pA);
+	stuDA_t student_B = *((stuDA_t*) pB);
+                      
+	// get student family names
+	char *fName_A = student_A.data.fName;
+	char *fName_B = student_B.data.fName;  
+	return strcmpi(fName_A, fName_B);
 
 	// PROBLEM #3: complete the code for this function
 	//	       NOTE: PLEASE COMMIT CHANGES ONCE YOUR DONE THIS FUNCTION
@@ -32,6 +42,7 @@ int comparo_fName(const void *pA, const void *pB)
  */
 int comparo_gName(const void *pA, const void *pB)
 {
+      
 	// extract student records
 	stuDA_t student_A = *((stuDA_t*) pA);
 	stuDA_t student_B = *((stuDA_t*) pB);
@@ -40,7 +51,7 @@ int comparo_gName(const void *pA, const void *pB)
 	char *gName_A = student_A.data.gName;
 	char *gName_B = student_B.data.gName;
 
-	return strcmp(gName_A, gName_B);
+	return strcmpi(gName_A, gName_B);
 }
 
 /*
@@ -48,7 +59,18 @@ int comparo_gName(const void *pA, const void *pB)
  *
  */
 int comparo_grade(const void *pA, const void *pB)
-{
+{   
+   // extract student records
+	stuDA_t student_A = *((stuDA_t*) pA);
+	stuDA_t student_B = *((stuDA_t*) pB);
+
+	// get student given names
+	float gGrade_A = student_A.data.grade;
+	float gGrade_B = student_B.data.grade;
+// // 
+
+ 	return  (gGrade_A > gGrade_B);
+ 
 	// PROBLEM #4: complete the code for this function
 	//	       NOTE: PLEASE COMMIT CHANGES ONCE YOUR DONE THIS FUNCTION
 }
@@ -81,19 +103,22 @@ stuDA_t* formDynamicArray(stuLL_t *pHEAD_LL, size_t student_count)
  */
 stuDA_t* sortDynamicArray(stuDA_t *pHEAD, const sort_t sort_type,
 		const size_t array_size)
-{
+{       
 	// PROBLEM #5: complete the code for this function
 	//	       NOTE: PLEASE COMMIT CHANGES ONCE YOUR DONE THIS FUNCTION
-
+ 
 	switch (sort_type)
 	{
-	case fNamesort:
-		qsort(pHEAD, array_size, sizeof(stuRec_t), comparo_fName);
-		break;
-	case gNamesort:
-		// fill the code here for Part a)
-	case gradesort:
-		// fill the code here for Part b)
+            case fNamesort:                  
+                    qsort(pHEAD, array_size, sizeof(stuRec_t), comparo_fName);
+                    break;
+            case gNamesort:
+                    qsort(pHEAD, array_size, sizeof(stuRec_t), comparo_gName);
+                     break;
+            case gradesort:
+                    qsort(pHEAD, array_size, sizeof(stuRec_t), comparo_grade);
+                    break;  
+                
 	}
 	return pHEAD;
 }

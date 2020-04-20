@@ -17,8 +17,14 @@
 /*
  * (private) function creates a new node; if it returns NULL, malloc() was unable to do it!
  */
+ 
 stuLL_t* createNodeLinkedList(void)
 {
+    stuLL_t* pHEAD; // declare a node
+    pHEAD = (stuLL_t*)malloc(sizeof(struct stuLLStruct)); // allocate memory using malloc()    
+    pHEAD->pNext = NULL; // the head node is also the last node atm
+    return pHEAD;
+    //return pHEAD new node
 	// PROBLEM #1: complete the code for this function
 	//	       NOTE: PLEASE COMMIT CHANGES ONCE YOUR DONE THIS FUNCTION
 }
@@ -86,15 +92,22 @@ stuLL_t* addNodeLinkedList(stuLL_t *pHEAD, stuRec_t stdata)
 stuLL_t* findLinkedList(stuLL_t *pHEAD, char *targetFamilyName)
 {
 	stuLL_t *pW = pHEAD;
-	unsigned int i = 0;
+	 
 	if (pW != NULL) // if pW == NULL, simply exit
 	{
 		// list is not empty, begin search
-		while ((pW != NULL) && (strcmp(pW->data.fName, targetFamilyName)))
+		while ((pW != NULL) && (strcmpi(pW->data.fName, targetFamilyName)))
 		{
+                    if(strcmpi(pW -> data.fName, targetFamilyName) == 0){
+                        printf("Found \n");
+                        return pW;
+                    }
+                   pW = pW->pNext;
+                    
 			// PROBLEM #2: complete the code for this function
 			//	       NOTE: PLEASE COMMIT CHANGES ONCE YOUR DONE THIS FUNCTION
 		}
+                
 		printf("\n");
 	}
 	return pW;
